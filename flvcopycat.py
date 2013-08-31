@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/bin/env python2
 #-*- coding: utf-8 -*-
 
 #Code for Binary Data Read
@@ -123,7 +123,7 @@ def make_sd_date(date):
     data += mk_ui16(8)
     return data
 
-#Code for analyse and join flv file 
+#Code for analyse and join flv file
 import argparse, os
 import pprint
 import struct
@@ -182,7 +182,7 @@ for i in l:
     if h != header:
         print '%s : video type vary from others' % i
         exit(-1)
-    
+
 print "OK!"
 
 #Build FLV Header For Output File
@@ -261,7 +261,7 @@ class ScriptObject(object):
             func = funcs[fieldtype]
             if callable(func):
                 self.metadata[i] = (fieldtype, func(script))
-        
+
         self.metadata['metadatacreator'] = \
             (2,r"FLVCopyCat - Shinohane".encode())
 
@@ -280,7 +280,7 @@ class ScriptObject(object):
                 }
         out = io.BytesIO()
         out.write(make_ui8(2)) #Object Type: String
-        out.write(make_sd_string("onMetaData")) 
+        out.write(make_sd_string("onMetaData"))
         out.write(make_ui8(8)) #Object Type: ECMA Array
         out.write(make_ui32(len(self.metadata))) #Array Size
         for k,v in self.metadata.items():
@@ -343,7 +343,7 @@ class ScriptObject(object):
 class VideoTag(object):
     def __init__(self, f, size):
         self.data = f.read(size)
-        self.frametype = struct.unpack("B",self.data[0])[0] >> 4 
+        self.frametype = struct.unpack("B",self.data[0])[0] >> 4
     def write(self, f):
         f.write(self.data)
 
@@ -421,7 +421,7 @@ for f in fs:
         while True:
             tag = FLVTag(f)
             datasize += tag.datasize
-            tag.timestamp += timestampbase 
+            tag.timestamp += timestampbase
             if lasttimestamp < tag.timestamp:
                 lasttimestamp = tag.timestamp
             if type(tag.data) == VideoTag:
